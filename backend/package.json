@@ -1,0 +1,29 @@
+{
+  "name": "Sorteio.org",
+  "version": "0.0.1",
+  "description": "Api para sorteios",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/marcosbergamo/sorteio.org"
+  },
+  "keywords": [
+    "sorteio",
+    "random"
+  ],
+  "author": "Marcos Bérgamo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/marcosbergamo/sorteio.org/issues"
+  },
+  "homepage": "https://github.com/marcosbergamo/sorteio.org",
+  "dependencies": {
+    "joi": "^4.6.2",
+    "moment": "^2.8.2",
+    "mongoose": "^3.8.17",
+    "mongoose-paginate": "^3.1.0"
+  }
+}
