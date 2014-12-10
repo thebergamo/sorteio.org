@@ -14,8 +14,8 @@ var schema = new mongoose.Schema({
     type: Number,
     default: 100
   },
-  event : { type: Schema.Types.ObjectId, ref: 'event', required: true },
-  participants : [{ type: Schema.Types.ObjectId, ref: 'user' }],
+  event : { type: mongoose.Schema.Types.ObjectId, ref: 'event', required: true },
+  participants : [{ type: mongoose.Schema.Types.ObjectId, ref: 'user' }],
 });
 
 schema.plugin(paginate);

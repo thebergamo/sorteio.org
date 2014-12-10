@@ -1,0 +1,6 @@
+message Token {
+    required string _id = 1;
+    required string username = 2;
+    required int64 expires = 3;
+    required int64 created = 4;
+}

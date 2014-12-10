@@ -16,8 +16,9 @@ db.connection.on('connected', function(){
 
   // Inicializando o servidor http
   httpServer.start(function(err){
-    if(err)
+    if(err){
       throw err;
+    }
 
     log.info('Servidor iniciado na porta ' + httpServer.info.port +
       ' no modo ' + config.get('mode'));

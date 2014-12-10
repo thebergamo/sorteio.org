@@ -21,9 +21,19 @@
   },
   "homepage": "https://github.com/marcosbergamo/sorteio.org",
   "dependencies": {
+    "bcrypt": "^0.8.0",
+    "boom": "^2.6.1",
+    "hapi": "^8.0.0",
     "joi": "^4.6.2",
-    "moment": "^2.8.2",
+    "moment": "^2.8.4",
     "mongoose": "^3.8.17",
-    "mongoose-paginate": "^3.1.0"
+    "mongoose-paginate": "^3.1.0",
+    "mongoose-unique-validator": "^0.4.1",
+    "protobufjs": "^3.8.2",
+    "requi": "^0.2.2",
+    "ssh-key-to-pem": "^0.11.0",
+    "ursa": "^0.8.1",
+    "winston": "^0.8.3",
+    "xconf": "0.0.2"
   }
 }

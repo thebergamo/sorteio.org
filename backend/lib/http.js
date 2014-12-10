@@ -3,10 +3,10 @@
 
 var Hapi = require('hapi');
 var config = require(__dirname + '/config');
-var server = new Hapi.Server(config.get('port'), {
-  files: {
-    relativeTo: __dirname + '/../'
-  },
+var server = new Hapi.Server();
+
+server.connection({
+  port: config.get('port')
 });
 
 module.exports = server;

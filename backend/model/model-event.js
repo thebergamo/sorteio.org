@@ -13,8 +13,8 @@ var schema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  owner : { type: Schema.Types.ObjectId, ref: 'user', required: true },
-  participants : [{ type: Schema.Types.ObjectId, ref: 'user' }]
+  owner : mongoose.Schema.Types.ObjectId,
+  participants : [mongoose.Schema.Types.ObjectId]
 });
 
 schema.plugin(paginate);
