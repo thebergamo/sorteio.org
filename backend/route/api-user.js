@@ -13,18 +13,14 @@ server.route({
   method: 'POST',
   path: '/api/v1/login',
   handler: function(request, reply){
-    User.findOne({username: request.params.username}, function(err, doc){
-      if(err){
-        log.error('Check user error: '+err);
-        return reply(Boom.notFound('Invalid user'));
-      }
-      delete doc.password;
-      return reply(doc);
-
-    });
     User.findOne({username: request.payload.username}, function(err, doc){
       if(err){
         log.error('Check user error: '+err);
+        return reply(Boom.unauthorized('Invalid user or password'));
+      }
+
+      if(!doc){
+        log.error('Error user not Found');
         return reply(Boom.unauthorized('Invalid user or password'));
       }
 
@@ -40,38 +36,7 @@ server.route({
 
         var expires = moment().add('year', 1).unix();
         var token = new proto.Token({
-          _id : doc._id,
-          username: doc.username,
-          expires: expires,
-          created: moment().unix()
-        });
-
-        var encrypted = crypto.encrypt(token.toBuffer());
-
-        return reply({
-          token: encrypted.toString('base64')
-        });
-
-      });
-
-    });
-
-    crypt.encrypt(request.payload.password, function(err, hash){
-      if(err){
-        log.error('Encrypt error: '+err);
-        return reply(Boom.badRequest('Try again later...'));
-      }
-      request.payload.password = hash;
-      var user = new User(request.payload);
-      user.save(function(err, doc){
-        if(err){
-          log.error('Save user error: '+err);
-          return reply(Boom.badRequest('Try again later...'));
-        }
-
-        var expires = moment().add('year', 1).unix();
-        var token = new proto.Token({
-          _id : doc._id,
+          _id : doc._id.toString(),
           username: doc.username,
           expires: expires,
           created: moment().unix()
@@ -172,15 +137,17 @@ server.route({
       if(obj.expires.low < (new Date().getTime() / 1000))
         return reply(Boom.forbidden('Expired authentication token.'));
 
+      if(request.payload.username != obj.username){
+        log.error('Token is not valid for this user');
+        return reply(Boom.unauthorized('Token is not valid for this user'));
+      }
+
+      delete request.payload.username;
+
       User.findById(obj._id, function(err, doc){
         if(err){
           log.error('Validate user error: '+err);
           return reply(Boom.badRequest('Invalid user'));
-        }
-
-        if(doc.username != obj.username){
-          log.error('Token is not valid for this user');
-          return reply(Boom.unauthorized('Token is not valid for this user'));
         }
 
         User.findByIdAndUpdate(obj._id, {$set: request.payload}, function(err, doc){
@@ -194,7 +161,7 @@ server.route({
       });
     }catch(err){
       log.error('Validate token error: '+err);
-      return reply(Boom.badRequest('Try again later...'));
+      return reply(Boom.forbidden('Invalid token'));
     }
   },
   config: {
@@ -241,7 +208,7 @@ server.route({
       });
     }catch(err){
       log.error('Validate token error: '+err);
-      return reply(Boom.badRequest('Try again later...'));
+      return reply(Boom.forbidden('Invalid token'));
     }
   }
 });
@@ -276,7 +243,7 @@ server.route({
       });
     }catch(err){
       log.error('Validate token error: '+err);
-      return reply(Boom.badRequest('Try again later...'));
+      return reply(Boom.forbidden('Invalid token'));
     }
   },
   config: {

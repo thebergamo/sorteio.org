@@ -35,5 +35,9 @@
     "ursa": "^0.8.1",
     "winston": "^0.8.3",
     "xconf": "0.0.2"
+  },
+  "devDependencies": {
+    "code": "^1.2.1",
+    "lab": "^5.1.0"
   }
 }

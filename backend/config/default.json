@@ -1,7 +1,7 @@
 {
   "port": 3002,
   "log": true,
-  "mode": "development",
+  "mode": "coverage",
   "mongodb": "mongodb://localhost:27017/sorteio_dev",
   "salt": "$2a$06$CCOpnPUU/PmsNRCLTGu.se"
 }

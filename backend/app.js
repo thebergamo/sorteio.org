@@ -24,3 +24,5 @@ db.connection.on('connected', function(){
       ' no modo ' + config.get('mode'));
   });
 });
+
+module.exports = httpServer;
